@@ -13,6 +13,6 @@ entities:
   - entity: sensor.power_meter_exported
 title: Huawei Solar Replicate Sensor
 view_layout:
-  position: sidebar
+  position: main
 show_header_toggle: false
 state_color: true
