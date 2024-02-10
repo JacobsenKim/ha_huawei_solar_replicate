@@ -1,0 +1,348 @@
+################################################################################################
+# Replica power sensor, read from source, from target to show on target Home Assistant instance.
+# huawei_solar_replicate: v1.0.0
+#
+# Made by: https://github.com/JacobsenKim
+# Testet on: HAOS = 11.4 # HAC = 2024.1.3
+#
+# v1.0.0 - Release to git.
+# v0.0.7 - Cleanup - Token - IP - Text.
+# v0.0.6 - Fix problem with Energy dashboard price.
+# v0.0.5 - Add sensor for inverter 2 # not testet, i dont have inverter 2
+# v0.0.4 - Try to get !secrets to work with Token, but not posible atm.
+# v0.0.3 - All sensors for energy dashboard + bonus sensor "battery_state_of_capacity"
+# v0.0.2 - All sensor for PEES.
+# v0.0.1 - First sensor working.
+#
+################################################################################################
+#
+##########################################################################
+## !!!!!! Always make sure to back up everything before you begin !!!!! ##
+##########################################################################
+#
+#################
+# On source HA: #
+#################
+#
+# Ensure the following:
+#
+# The correct IP address of your source Home Assistant instance.
+#
+# Replace "YOUR_LONG_LIVED_ACCESS_TOKEN" from source HA, with your actual long-lived access token from the source.
+#
+############################################################################################
+# You’ll find this token-menu when you click your username on the lower left corner in HA. #
+# #                           Token Name: huawei solar replicate                             #
+############################################################################################
+#
+# This is an example Token that is used in the example below, remember to insert youre own to all sensors.
+#
+# Use the "search" and replace in HA file editor, here are what to search for.
+#
+# Source IP: 192.168.10.24
+#
+# Source Token: YOUR_LONG_LIVED_ACCESS_TOKEN_HERE
+#
+# Source Token: YOUR_LONG_LIVED_ACCESS_TOKEN
+#
+#
+# Once you've verified these details, this setup should work as intended.
+#
+#################
+# On target HA: #
+#################
+#
+# In "configuration.yaml" add: (remember to remove the #)
+#
+#homeassistant:
+#    huawei_solar_replicate: !include packages/huawei_solar_replicate_target.yaml
+#
+# Copy this file "huawei_solar_replicate_target.yaml" to target HA "packages" folder
+#
+# packages/huawei_solar_replicate_target.yaml
+#
+# Then Restart HA
+#
+###################################################################################################
+# !!! WARNING !!! WARNING !!! WARNING !!! WARNING !!! WARNING !!! WARNING !!! WARNING !!! WARNING #
+# !!! WARNING !!! WARNING !!! WARNING !!! WARNING !!! WARNING !!! WARNING !!! WARNING !!! WARNING #
+# !!! WARNING !!! WARNING !!! WARNING !!! WARNING !!! WARNING !!! WARNING !!! WARNING !!! WARNING #
+###              If install on top of huawei solar, sensors will look like this                 ###
+###################################################################################################
+#
+# - 'sensor.inverter_input_power_2'
+# - 'sensor.inverter_input_power_2_2'
+# - 'sensor.power_meter_active_power_2'
+# - 'sensor.power_meter_active_power_2'
+# - 'sensor.power_meter_consumption_2'
+# - 'sensor.battery_charge_discharge_power_2'
+# - 'sensor.battery_state_of_capacity_2'
+# - 'sensor.power_meter_exported _2'
+# - 'sensor.battery_day_charge_2'
+# - 'sensor.battery_day_discharge_2'
+# - 'sensor.inverter_daily_yield_2'
+#
+# Energy dash:
+# If you deaktivate huawei solar, and want to get Energy dash to work 100% you need to turn off price, delete the 3 sensors listet here below, then restart and setup this package then add price in Energy dash.
+#
+# sensor.power_meter_exported_compensation
+# sensor.power_meter_consumption_cost
+# sensor.power_meter_exported
+#
+# Solution: Deaktivate huawei solar and delete the sensors listet below (before restart) in /developer-tools/state (remember Ctrl+F5), then install this package and restart.
+#
+# If you want to go back to huawei solar, then remove the line we add in configuration.yaml, restart HA, delete the sensors, restart, aktivate huawei solar.
+#
+##########################################################################
+#
+# Replica sensors =
+#
+# sensor.inverter_input_power (from the Huawei Solar integration)
+# sensor.inverter_input_power_2 (from the Huawei Solar integration)
+# sensor.inverter_active_power (from the Huawei Solar integration)
+# sensor.power_meter_active_power (from the Huawei Solar integration)
+# sensor.power_meter_consumption (from the Huawei Solar integration)
+# sensor.battery_charge_discharge_power (from the Huawei Solar integration)
+# sensor.battery_state_of_capacity (from the Huawei Solar integration)
+# sensor.power_meter_exported (from the Huawei Solar integration)
+# sensor.battery_day_charge (from the Huawei Solar integration)
+# sensor.battery_day_discharge (from the Huawei Solar integration)
+# sensor.inverter_daily_yield  (from the Huawei Solar integration)
+#
+############################################################################
+## Replace to fit youre info:  ( ip, Authorization token, scan_interval ) ##
+############################################################################
+############################################################################
+## Replace to fit youre info:  ( ip, Authorization token, scan_interval ) ##
+############################################################################
+############################################################################
+## Replace to fit youre info:  ( ip, Authorization token, scan_interval ) ##
+############################################################################
+#
+sensor:
+# sensor.inverter_input_power
+  - platform: rest
+    name: "Inverter Input Power"
+    unique_id: "inverter_input_power"
+    resource: "http://192.168.10.24:8123/api/states/sensor.inverter_input_power"
+    method: GET
+    headers:
+      Authorization: "Bearer YOUR_LONG_LIVED_ACCESS_TOKEN"
+      Content-Type: "application/json"
+    value_template: "{{ value_json.state | float }}"
+    scan_interval: 5
+    icon: mdi:meter-electric-outline
+    unit_of_measurement: "W"
+    state_class: "measurement"
+    device_class: "power"
+
+# sensor.inverter_input_power_2
+  - platform: rest
+    name: "Inverter Input Power 2"
+    unique_id: "inverter_input_power_2"
+    resource: "http://192.168.10.24:8123/api/states/sensor.inverter_input_power_2"
+    method: GET
+    headers:
+      Authorization: "Bearer YOUR_LONG_LIVED_ACCESS_TOKEN" # Update with the access token of the source machine
+      Content-Type: "application/json"
+    value_template: "{{ value_json.state | float }}"
+    scan_interval: 5
+    icon: mdi:flash
+    unit_of_measurement: "W"
+    state_class: "measurement"
+    device_class: "power"
+
+# sensor.inverter_active_power
+  - platform: rest
+    name: "Inverter Active Power"
+    unique_id: "inverter_active_power"
+    resource: "http://192.168.10.24:8123/api/states/sensor.inverter_active_power"
+    method: GET
+    headers:
+      Authorization: "Bearer YOUR_LONG_LIVED_ACCESS_TOKEN" # Update with the access token of the source machine
+      Content-Type: "application/json"
+    value_template: "{{ value_json.state | float }}"
+    scan_interval: 5
+    icon: mdi:flash
+    unit_of_measurement: "W"
+    state_class: "measurement"
+    device_class: "power"
+
+# sensor.power_meter_active_power
+  - platform: rest
+    name: "Power Meter Active Power"
+    unique_id: "power_meter_active_power"
+    resource: "http://192.168.10.24:8123/api/states/sensor.power_meter_active_power"
+    method: GET
+    headers:
+      Authorization: "Bearer YOUR_LONG_LIVED_ACCESS_TOKEN" # Update with the access token of the source machine
+      Content-Type: "application/json"
+    value_template: "{{ value_json.state | float }}"
+    scan_interval: 5
+    icon: mdi:flash
+    unit_of_measurement: "W"
+    state_class: "measurement"
+    device_class: "power"
+
+# sensor.power_meter_consumption
+  - platform: rest
+    name: "Power Meter Consumption"
+    unique_id: "power_meter_consumption"
+    resource: "http://192.168.10.24:8123/api/states/sensor.power_meter_consumption"
+    method: GET
+    headers:
+      Authorization: "Bearer YOUR_LONG_LIVED_ACCESS_TOKEN" # Update with the access token of the source machine
+      Content-Type: "application/json"
+    value_template: "{{ value_json.state | float }}"
+    scan_interval: 5
+    icon: mdi:flash
+    unit_of_measurement: "kWh"
+    state_class: "total_increasing"
+    device_class: "energy"
+
+# sensor.battery_charge_discharge_power
+  - platform: rest
+    name: "Battery Charge Discharge Power"
+    unique_id: "battery_charge_discharge_power"
+    resource: "http://192.168.10.24:8123/api/states/sensor.battery_charge_discharge_power"
+    method: GET
+    headers:
+      Authorization: "Bearer YOUR_LONG_LIVED_ACCESS_TOKEN" # Update with the access token of the source machine
+      Content-Type: "application/json"
+    value_template: "{{ value_json.state | float }}"
+    scan_interval: 5
+    icon: mdi:home-battery-outline
+    unit_of_measurement: "W"
+    state_class: "measurement"
+    device_class: "power"
+
+# sensor.battery_state_of_capacity
+  - platform: rest
+    name: "Battery State Of Capacity"
+    unique_id: "battery_state_of_capacity"
+    resource: "http://192.168.10.24:8123/api/states/sensor.battery_state_of_capacity"
+    method: GET
+    headers:
+      Authorization: "Bearer YOUR_LONG_LIVED_ACCESS_TOKEN" # Update with the access token of the source machine
+      Content-Type: "application/json"
+    value_template: "{{ value_json.state | float }}"
+    scan_interval: 30
+    icon: mdi:home-battery
+    unit_of_measurement: "%"
+    state_class: "measurement"
+
+# sensor.power_meter_exported
+  - platform: rest
+    name: "Power Meter Exported"
+    unique_id: "power_meter_exported"
+    resource: "http://192.168.10.24:8123/api/states/sensor.power_meter_exported"
+    method: GET
+    headers:
+      Authorization: "Bearer YOUR_LONG_LIVED_ACCESS_TOKEN" # Update with the access token of the source machine
+      Content-Type: "application/json"
+    value_template: "{{ value_json.state | float }}"
+    scan_interval: 5
+    icon: mdi:flash
+    unit_of_measurement: "kWh"
+    state_class: "total_increasing"
+    device_class: "energy"
+
+# sensor.battery_day_charge
+  - platform: rest
+    name: "Battery Day Charge"
+    unique_id: "battery_day_charge"
+    resource: "http://192.168.10.24:8123/api/states/sensor.battery_day_charge"
+    method: GET
+    headers:
+      Authorization: "Bearer YOUR_LONG_LIVED_ACCESS_TOKEN" # Update with the access token of the source machine
+      Content-Type: "application/json"
+    value_template: "{{ value_json.state | float }}"
+    scan_interval: 5
+    icon: mdi:battery-plus-variant
+    unit_of_measurement: "kWh"
+    state_class: "total_increasing"
+    device_class: "energy"
+
+# sensor.battery_day_discharge
+  - platform: rest
+    name: "Battery Day Discharge"
+    unique_id: "battery_day_discharge"
+    resource: "http://192.168.10.24:8123/api/states/sensor.battery_day_discharge"
+    method: GET
+    headers:
+      Authorization: "Bearer YOUR_LONG_LIVED_ACCESS_TOKEN" # Update with the access token of the source machine
+      Content-Type: "application/json"
+    value_template: "{{ value_json.state | float }}"
+    scan_interval: 5
+    icon: mdi:battery-minus-variant
+    unit_of_measurement: "kWh"
+    state_class: "total_increasing"
+    device_class: "energy"
+
+# sensor.inverter_daily_yield
+  - platform: rest
+    name: "Inverter Daily Yield"
+    unique_id: "inverter_daily_yield"
+    resource: "http://192.168.10.24:8123/api/states/sensor.inverter_daily_yield"
+    method: GET
+    headers:
+      Authorization: "Bearer YOUR_LONG_LIVED_ACCESS_TOKEN" # Update with the access token of the source machine
+      Content-Type: "application/json"
+    value_template: "{{ value_json.state | float }}"
+    scan_interval: 5
+    icon: mdi:solar-power
+    unit_of_measurement: "kWh"
+    state_class: "total_increasing"
+    device_class: "energy"
+################################################################################################
+#
+# In /developer-tools/template one can see the value off all sensors.
+#
+# huawei_solar_replicate_target
+#
+#{{ states('sensor.inverter_input_power') }}
+#{{ states('sensor.inverter_input_power_2') }}
+#{{ states('sensor.inverter_active_power') }}
+#{{ states('sensor.power_meter_active_power') }}
+#{{ states('sensor.power_meter_consumption') }}
+#{{ states('sensor.battery_charge_discharge_power') }}
+#{{ states('sensor.battery_state_of_capacity') }}
+#{{ states('sensor.power_meter_exported') }}
+#{{ states('sensor.battery_day_charge') }}
+#{{ states('sensor.battery_day_discharge') }}
+#{{ states('sensor.inverter_daily_yield') }}
+#
+################################################################################################
+#
+# Make sure the target machine can reach source machine's API, and the API is accessible from target machine.
+#
+# Test if we can read the sensor value
+# # all sensor is made out of the return data from eatch sensor.
+# Edit to fit youre info (token, ip, sensor) and run from any terminal in youre network.
+#
+# (remove # before run in terminal)
+# curl -X GET -H "Authorization: Bearer YOUR_LONG_LIVED_ACCESS_TOKEN" http://192.168.10.24:8123/api/states/sensor.inverter_input_power
+#
+# Return:
+#
+#{"entity_id":"sensor.inverter_input_power","state":"0","attributes":{"state_class":"measurement","unit_of_measurement":"W","device_class":"power","friendly_name":"Solceller Indgang"},"last_changed":"2024-02-07T16:12:26.790177+00:00","last_updated":"2024-02-07T16:12:26.790177+00:00","context":{"id":"01HP25F396212315GQYEFM123E","parent_id":null,"user_id":null}}
+#
+# Beutify:
+#{
+#  "entity_id": "sensor.inverter_input_power",
+#  "state": "0",
+#  "attributes": {
+#    "state_class": "measurement",
+#    "unit_of_measurement": "W",
+#    "device_class": "power",
+#    "friendly_name": "Solceller Indgang"
+#  },
+#  "last_changed": "2024-02-07T16:12:26.790177+00:00",
+#  "last_updated": "2024-02-07T16:12:26.790177+00:00",
+#  "context": {
+#    "id": "01HP25F396212315GQYEFM123E",
+#    "parent_id": null,
+#    "user_id": null
+#  }
+#}
+################################################################################################
