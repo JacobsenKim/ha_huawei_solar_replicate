@@ -129,7 +129,7 @@ sensor:
       Content-Type: "application/json"
     value_template: "{{ value_json.state | float }}"
     scan_interval: 5
-    icon: mdi:meter-electric-outline
+    icon: mdi:flash
     unit_of_measurement: "W"
     state_class: "measurement"
     device_class: "power"
