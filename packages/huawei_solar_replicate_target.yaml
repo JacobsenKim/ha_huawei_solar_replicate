@@ -2,7 +2,7 @@
 # Replica power sensor, read from source, from target to show on target Home Assistant instance.
 # huawei_solar_replicate: v1.0.0
 #
-# Made by: https://github.com/JacobsenKim
+# Link: https://github.com/JacobsenKim/ha_huawei_solar_replicate
 # Testet on: HAOS = 11.4 # HAC = 2024.1.3
 #
 # v1.0.0 - Release to git.
