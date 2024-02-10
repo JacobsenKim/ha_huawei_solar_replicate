@@ -1,14 +1,7 @@
 # ha_huawei_solar_replicate
 Replica power sensor, read source, from target to show on target Home Assistant instance.
 
-![Skærmbillede fra 2024-02-10 12-33-54](https://github.com/JacobsenKim/ha_huawei_solar_replicate/assets/157890151/cbc473f8-fd0c-4306-93cc-7a933ac2f6b0)
-
-
 ![Skærmbillede fra 2024-02-10 13-59-57](https://github.com/JacobsenKim/ha_huawei_solar_replicate/assets/157890151/6e724672-a1ef-4ccc-bccf-c957d651e05e)
-
-
-![Skærmbillede fra 2024-02-10 12-34-21](https://github.com/JacobsenKim/ha_huawei_solar_replicate/assets/157890151/32234a3d-454a-4337-b7ae-06ccbccbd9df)
-
 
 Testet on:
 HAOS = 11.4 # HAC = 2024.1.3
