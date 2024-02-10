@@ -32,13 +32,14 @@ Once you've verified these details, this setup should work as intended.
 
 # On target HA: 
 
- In "configuration.yaml" add: (remember to remove the #)
+In "configuration.yaml" add:
 
 homeassistant:
+
     huawei_solar_replicate: !include packages/huawei_solar_replicate_target.yaml
 
 Copy this file "huawei_solar_replicate_target.yaml" to target HA "packages" folder
 
 packages/huawei_solar_replicate_target.yaml
-#
+
 Then Restart HA
