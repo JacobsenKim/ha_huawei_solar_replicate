@@ -125,7 +125,7 @@ sensor:
     resource: "http://192.168.10.24:8123/api/states/sensor.inverter_input_power"
     method: GET
     headers:
-      Authorization: "Bearer YOUR_LONG_LIVED_ACCESS_TOKEN"
+      Authorization: "Bearer YOUR_LONG_LIVED_ACCESS_TOKEN" # Update with the access token of the source machine
       Content-Type: "application/json"
     value_template: "{{ value_json.state | float }}"
     scan_interval: 5
