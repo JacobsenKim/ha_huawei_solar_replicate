@@ -1,7 +1,11 @@
 # ha_huawei_solar_replicate
 Replica power sensor, read source, from target to show on target Home Assistant instance.
 
-Testet on: HAOS = 11.4 # HAC = 2024.1.3
+Testet on:
+HAOS = 11.4 # HAC = 2024.1.3
+
+And:
+HAOS = 11.5 # HAC = 2024.2.1
 
 # !!! Always make sure to back up everything before you begin !!!
 
@@ -27,16 +31,17 @@ Source IP: 192.168.10.24
 
 Source Token: YOUR_LONG_LIVED_ACCESS_TOKEN
 
-Once you've verified these details, this setup should work as intended.
+Once you've verified these details and insert youre IP and Token to the huawei_solar_replicate_target.yaml, this setup should work as intended.
 
 
 # On target HA: 
 
 In "configuration.yaml" add:
 
-homeassistant:
+    homeassistant:
 
-    huawei_solar_replicate: !include packages/huawei_solar_replicate_target.yaml
+
+        huawei_solar_replicate: !include packages/huawei_solar_replicate_target.yaml
 
 Copy this file "huawei_solar_replicate_target.yaml" to target HA "packages" folder
 
