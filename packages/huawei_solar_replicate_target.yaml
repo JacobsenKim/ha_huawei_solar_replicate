@@ -28,14 +28,17 @@
 #
 # The correct IP address of your source Home Assistant instance.
 #
-# Replace "YOUR_LONG_LIVED_ACCESS_TOKEN" from source HA, with your actual long-lived access token from the source.
+# Replace "YOUR_LONG_LIVED_ACCESS_TOKEN" in Target HA, with your actual long-lived access token from the source.
 #
 ############################################################################################
 # You’ll find this token-menu when you click your username on the lower left corner in HA. #
-# #                           Token Name: huawei solar replicate                             #
+# #                           Token Name: huawei solar replicate                          ##
 ############################################################################################
+#################
+# On target HA: #
+#################
 #
-# This is an example Token that is used in the example below, remember to insert youre own to all sensors.
+# This is an example Token that is used in the example below, remember to insert your own to all sensors.
 #
 # Use the "search" and replace in HA file editor, here are what to search for.
 #
@@ -45,10 +48,6 @@
 #
 #
 # Once you've verified these details, this setup should work as intended.
-#
-#################
-# On target HA: #
-#################
 #
 # In "configuration.yaml" add: (remember to remove the #)
 #
