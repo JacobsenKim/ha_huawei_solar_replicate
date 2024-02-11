@@ -5,15 +5,6 @@
 # Link: https://github.com/JacobsenKim/ha_huawei_solar_replicate
 # How2: https://github.com/JacobsenKim/ha_huawei_solar_replicate/wiki
 #
-# v1.0.0 - Release to git.
-# v0.0.7 - Cleanup - Token - IP - Text.
-# v0.0.6 - Fix problem with Energy dashboard price.
-# v0.0.5 - Add sensor for inverter 2 # not testet, i dont have inverter 2
-# v0.0.4 - Try to get !secrets to work with Token, but not posible atm.
-# v0.0.3 - All sensors for energy dashboard + bonus sensor "battery_state_of_capacity"
-# v0.0.2 - All sensor for PEES.
-# v0.0.1 - First sensor working.
-#
 ################################################################################################
 #
 ##########################################################################
